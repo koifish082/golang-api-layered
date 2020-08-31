@@ -1,0 +1,3 @@
+ENV=local
+PORT=:3333
+LOG_LEVEL=info
