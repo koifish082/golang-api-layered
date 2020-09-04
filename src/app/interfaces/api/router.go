@@ -3,6 +3,8 @@ package api
 import (
 	"net/http"
 
+	v1 "github.com/koifish082/golang-api-layered/src/app/interfaces/api/v1"
+
 	"github.com/gin-gonic/gin"
 	"github.com/koifish082/golang-api-layered/src/app/library/log"
 )
@@ -21,6 +23,8 @@ func (a *App) Router() *gin.Engine {
 		log.Infoln("hello world!")
 		c.String(http.StatusOK, "hello world")
 	})
-	gin.Default()
+
+	v1.NewSearchResources(router.Group("/search")).Routes()
+
 	return router
 }
