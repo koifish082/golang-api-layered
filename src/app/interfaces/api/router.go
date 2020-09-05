@@ -3,9 +3,12 @@ package api
 import (
 	"net/http"
 
+	"github.com/koifish082/golang-api-layered/src/app/interfaces/api/middleware"
+	"github.com/koifish082/golang-api-layered/src/app/interfaces/helper"
+
 	v1 "github.com/koifish082/golang-api-layered/src/app/interfaces/api/v1"
 
-	"github.com/gin-gonic/gin"
+	"github.com/go-chi/chi"
 	"github.com/koifish082/golang-api-layered/src/app/library/log"
 )
 
@@ -17,14 +20,17 @@ func NewApp() *App {
 	return &App{}
 }
 
-func (a *App) Router() *gin.Engine {
-	router := gin.New()
-	router.GET("/welcome", func(c *gin.Context) {
+func (a *App) Router() http.Handler {
+	router := chi.NewRouter()
+	m := middleware.NewMiddleware()
+	router.Get("/welcome", func(w http.ResponseWriter, r *http.Request) {
 		log.Infoln("hello world!")
-		c.String(http.StatusOK, "hello world")
+		helper.Succeed(w, "welcome!")
 	})
 
-	v1.NewSearchResources(router.Group("/search")).Routes()
+	router.Route("/v1", func(r chi.Router) {
+		r.Mount("/search", v1.NewSearchResources(m).Routes())
+	})
 
 	return router
 }
