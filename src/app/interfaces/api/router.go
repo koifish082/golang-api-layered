@@ -12,6 +12,7 @@ import (
 	"github.com/koifish082/golang-api-layered/src/app/library/log"
 )
 
+// App struct
 type App struct {
 }
 
@@ -20,6 +21,7 @@ func NewApp() *App {
 	return &App{}
 }
 
+// Router provides api router
 func (a *App) Router() http.Handler {
 	router := chi.NewRouter()
 	m := middleware.NewMiddleware()

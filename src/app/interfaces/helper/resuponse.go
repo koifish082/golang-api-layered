@@ -5,11 +5,12 @@ import (
 	"net/http"
 )
 
+// Succeed creates API success response
 func Succeed(w http.ResponseWriter, response interface{}) {
 	createResponse(w, http.StatusOK, response)
-
 }
 
+// Fail creates API failure response
 func Fail(w http.ResponseWriter, code int, response interface{}) {
 	createResponse(w, code, response)
 }
