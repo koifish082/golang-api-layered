@@ -1,5 +1,5 @@
 package search
 
-// CodeResponse is client response on code
-type CodeResponse struct {
+// RepositoryResponse is client response on code
+type RepositoryResponse struct {
 }

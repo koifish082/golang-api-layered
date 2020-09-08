@@ -6,8 +6,8 @@ import (
 	"github.com/koifish082/golang-api-layered/src/app/interfaces/helper"
 )
 
-// ValidateSearchCodeRequest validate request parameter on search code API
-func (m *Middleware) ValidateSearchCodeRequest(next http.Handler) http.Handler {
+// ValidateSearchRepositoriesRequest validate request parameter on search code API
+func (m *Middleware) ValidateSearchRepositoriesRequest(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		query := r.URL.Query()
 		if query.Get("q") == "" {

@@ -17,12 +17,12 @@ type SearchRequest struct {
 
 // SearchInterface represent signatures of methods related to github search API.
 type SearchInterface interface {
-	SearchCode(q string) (*model.SearchCode, *model.ServiceError)
+	SearchRepositories(q string) (*model.SearchRepository, *model.ServiceError)
 }
 
-// SearchCode search code on github
-func (r *SearchRequest) SearchCode(q string) (*model.SearchCode, *model.ServiceError) {
-	endpoint := fmt.Sprintf("%s/search/code",
+// SearchRepositories search repositories on github
+func (r *SearchRequest) SearchRepositories(q string) (*model.SearchRepository, *model.ServiceError) {
+	endpoint := fmt.Sprintf("%s/search/repositories",
 		viper.GetString(config.EnvGithubBaseURL),
 	)
 	headers := createCommonHeaders()
@@ -40,7 +40,7 @@ func (r *SearchRequest) SearchCode(q string) (*model.SearchCode, *model.ServiceE
 		return nil, err
 	}
 
-	res, e := model.UnmarshalSearchCode(resp.Body())
+	res, e := model.UnmarshalSearchRepository(resp.Body())
 	if e != nil {
 		return nil, model.NewServiceError(e)
 	}

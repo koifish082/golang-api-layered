@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"fmt"
 	"net/http"
 	"time"
 
@@ -32,6 +31,7 @@ var requiredEnvironments = []string{
 	config.Env,
 	config.EnvPort,
 	config.EnvLogLevel,
+	config.EnvGithubBaseURL,
 }
 
 var optionalEnvironments = []string{}
@@ -56,7 +56,6 @@ func init() {
 }
 
 func runServer(cmd *cobra.Command, args []string) {
-	fmt.Print("Hello world")
 	initLogger()
 	startAPIServer()
 }

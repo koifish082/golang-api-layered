@@ -12,8 +12,8 @@ import (
 
 // SearchResources provide search interfaces
 type SearchResources struct {
-	Middleware       *middleware.Middleware
-	GetCodeInterface search.GetCodeInterface
+	Middleware               *middleware.Middleware
+	GetRepositoriesInterface search.GetRepositoriesInterface
 }
 
 // NewSearchResources returns new SearchResources struct
@@ -26,18 +26,18 @@ func NewSearchResources(m *middleware.Middleware) *SearchResources {
 // Routes creates a REST router for the search resource
 func (rs SearchResources) Routes() chi.Router {
 	r := chi.NewRouter()
-	r.With(rs.Middleware.ValidateSearchCodeRequest).Get("/code", rs.getCode)
+	r.With(rs.Middleware.ValidateSearchRepositoriesRequest).Get("/repositories", rs.getRepositories)
 
 	return r
 }
 
-func (rs SearchResources) getCode(w http.ResponseWriter, r *http.Request) {
+func (rs SearchResources) getRepositories(w http.ResponseWriter, r *http.Request) {
 	query := r.URL.Query()
-	request := &search.GetCodeRequest{
+	request := &search.GetRepositoriesRequest{
 		Q: query.Get("q"),
 	}
-	rs.GetCodeInterface = request
-	res, err := rs.GetCodeInterface.GetCode()
+	rs.GetRepositoriesInterface = request
+	res, err := rs.GetRepositoriesInterface.GetRepositories()
 	if err != nil {
 		helper.Fail(w, err.Code, err)
 		return
