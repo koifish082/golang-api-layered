@@ -3,6 +3,8 @@ package v1
 import (
 	"net/http"
 
+	"github.com/koifish082/golang-api-layered/src/app/interfaces/api/model/requestparam"
+
 	"github.com/koifish082/golang-api-layered/src/app/application/usecase/search"
 
 	"github.com/go-chi/chi"
@@ -33,10 +35,10 @@ func (rs SearchResources) Routes() chi.Router {
 
 func (rs SearchResources) getRepositories(w http.ResponseWriter, r *http.Request) {
 	query := r.URL.Query()
-	request := &search.GetRepositoriesRequest{
-		Q: query.Get("q"),
+	req := &search.GetRepositoriesRequest{
+		Q: query.Get(requestparam.GetRepositoryQ),
 	}
-	rs.GetRepositoriesInterface = request
+	rs.GetRepositoriesInterface = req
 	res, err := rs.GetRepositoriesInterface.GetRepositories()
 	if err != nil {
 		helper.Fail(w, err.Code, err)

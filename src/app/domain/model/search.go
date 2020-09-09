@@ -19,18 +19,6 @@ type SearchRepository struct {
 	Items             []Items `json:"items"`
 }
 
-// Owner struct
-type Owner struct {
-	Login             string `json:"login"`
-	ID                int    `json:"id"`
-	NodeID            string `json:"node_id"`
-	AvatarURL         string `json:"avatar_url"`
-	GravatarID        string `json:"gravatar_id"`
-	URL               string `json:"url"`
-	ReceivedEventsURL string `json:"received_events_url"`
-	Type              string `json:"type"`
-}
-
 // Items struct
 type Items struct {
 	ID              int       `json:"id"`
@@ -56,4 +44,16 @@ type Items struct {
 	MasterBranch    string    `json:"master_branch"`
 	DefaultBranch   string    `json:"default_branch"`
 	Score           float64   `json:"score"`
+}
+
+// Owner struct
+type Owner struct {
+	Login             string `json:"login"`
+	ID                int    `json:"id"`
+	NodeID            string `json:"node_id"`
+	AvatarURL         string `json:"avatar_url"`
+	GravatarID        string `json:"gravatar_id"`
+	URL               string `json:"url"`
+	ReceivedEventsURL string `json:"received_events_url"`
+	Type              string `json:"type"`
 }

@@ -31,9 +31,6 @@ func (r *GetRepositoriesRequest) GetRepositories() (*search.RepositoryResponse, 
 	if err != nil {
 		return nil, common.NewClientError(err)
 	}
-	resp, e := convertSearchRepositoryResponse(res)
-	if e != nil {
-		return nil, e
-	}
+	resp := convertSearchRepositoryResponse(res)
 	return resp, nil
 }
