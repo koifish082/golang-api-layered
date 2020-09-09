@@ -1,7 +1,8 @@
 package cmd
 
 import (
-	"fmt"
+	"net/http"
+	"time"
 
 	"github.com/koifish082/golang-api-layered/src/app/config"
 	"github.com/koifish082/golang-api-layered/src/app/interfaces/api"
@@ -22,10 +23,15 @@ var serverCmd = &cobra.Command{
 	Run: runServer,
 }
 
+const (
+	serverTimeout = 10 * time.Second
+)
+
 var requiredEnvironments = []string{
 	config.Env,
 	config.EnvPort,
 	config.EnvLogLevel,
+	config.EnvGithubBaseURL,
 }
 
 var optionalEnvironments = []string{}
@@ -50,7 +56,6 @@ func init() {
 }
 
 func runServer(cmd *cobra.Command, args []string) {
-	fmt.Print("Hello world")
 	initLogger()
 	startAPIServer()
 }
@@ -72,10 +77,13 @@ func initLogger() {
 }
 
 func startAPIServer() {
-	app := api.NewApp()
-	port := viper.GetString(config.EnvPort)
-	router := app.Router()
-	err := router.Run(port)
+	server := http.Server{
+		Addr:         viper.GetString(config.EnvPort),
+		Handler:      api.NewApp().Router(),
+		ReadTimeout:  serverTimeout,
+		WriteTimeout: serverTimeout,
+	}
+	err := server.ListenAndServe()
 	if err != nil {
 		log.Fatal("Failed to start running server")
 	}
