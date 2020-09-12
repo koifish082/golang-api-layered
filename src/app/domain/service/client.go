@@ -62,12 +62,12 @@ func checkResponseWithOptions(res *resty.Response) *model.ServiceError {
 	if res.StatusCode() >= 200 && res.StatusCode() < 400 {
 		return nil
 	}
-	res.StatusCode()
-	errorResp, err := model.UnmarshalServiceErrorResponse(res.Body())
+	serverErrResp, err := model.UnmarshalServerErrorResponse(res.Body())
 	if err != nil {
 		return model.NewServiceError(err)
 	}
-	return &errorResp
+
+	return model.NewServiceErrorByServerError(serverErrResp, res.StatusCode())
 }
 
 func get(endpoint string, headers, queries map[string]string) (*resty.Response, *model.ServiceError) {
