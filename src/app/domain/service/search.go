@@ -27,7 +27,7 @@ func (r *SearchRequest) SearchRepositories(q string) (*model.SearchRepository, *
 	)
 	headers := createCommonHeaders()
 	queries := library.FilterNotEmptyValue(map[string]string{
-		"q": q,
+		model.SearchRepositoryQueryQ: q,
 	})
 
 	// Activate mock server.
@@ -45,5 +45,5 @@ func (r *SearchRequest) SearchRepositories(q string) (*model.SearchRepository, *
 		return nil, model.NewServiceError(e)
 	}
 
-	return &res, nil
+	return res, nil
 }

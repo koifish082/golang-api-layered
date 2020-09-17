@@ -1,6 +1,7 @@
 package log
 
 import (
+	"log"
 	"time"
 
 	"github.com/sirupsen/logrus"
@@ -13,6 +14,23 @@ type Config struct {
 	ServiceName    string
 	ServiceDetails interface{}
 	LogLevel       logrus.Level
+}
+
+type logWriter struct {
+	*logrus.Entry
+}
+
+func init() {
+	logrusLogger = logrus.NewEntry(logrus.New())
+	log.SetOutput(&logWriter{logrusLogger})
+	log.SetFlags(0)
+}
+
+func (l *logWriter) Write(p []byte) (n int, err error) {
+	if len(p) > 0 {
+		l.Infof("%s", p[:len(p)-1])
+	}
+	return len(p), nil
 }
 
 // InitLogger init log by Config

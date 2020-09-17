@@ -10,7 +10,7 @@ import (
 
 // NewClientError convert from ServiceError to ClientError
 func NewClientError(err *model.ServiceError) *dto.ClientError {
-	var details []string
+	details := make([]string, 0, len(err.Errors))
 	for _, e := range err.Errors {
 		details = append(details, fmt.Sprintf("%v", e))
 	}
