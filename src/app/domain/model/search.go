@@ -8,10 +8,10 @@ import (
 const SearchRepositoryQueryQ = "q"
 
 // UnmarshalSearchRepository is convert bytes to UnmarshalSearchRepository struct
-func UnmarshalSearchRepository(data []byte) (SearchRepository, error) {
+func UnmarshalSearchRepository(data []byte) (*SearchRepository, error) {
 	var r SearchRepository
 	err := json.Unmarshal(data, &r)
-	return r, err
+	return &r, err
 }
 
 // SearchRepository struct

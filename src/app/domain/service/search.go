@@ -45,5 +45,5 @@ func (r *SearchRequest) SearchRepositories(q string) (*model.SearchRepository, *
 		return nil, model.NewServiceError(e)
 	}
 
-	return &res, nil
+	return res, nil
 }
