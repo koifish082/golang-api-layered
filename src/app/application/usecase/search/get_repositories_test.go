@@ -1,19 +1,19 @@
 package search
 
 import (
+	"reflect"
+	"testing"
+
 	"github.com/koifish082/golang-api-layered/src/app/application/dto"
 	"github.com/koifish082/golang-api-layered/src/app/application/dto/search"
 	"github.com/koifish082/golang-api-layered/src/app/domain/mock"
-	"reflect"
-	"testing"
 )
 
 func TestGetRepositories(t *testing.T) {
 
-
 	// Args struct.
 	type args struct {
-		q                 string
+		q string
 	}
 
 	// All test cases.
@@ -63,7 +63,7 @@ func TestGetRepositories(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			// New request.
 			r := &GetRepositoriesRequest{
-				Q:  tt.args.q,
+				Q:                      tt.args.q,
 				SearchServiceInterface: &mock.SearchRequestMock{},
 			}
 			// Call application method for getting mocked data.
