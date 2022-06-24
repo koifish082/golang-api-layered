@@ -38,7 +38,7 @@ type SearchRequestMock struct {
 func (r *SearchRequestMock) SearchRepositories(q string) (*model.SearchRepository, *model.ServiceError) {
 	// Mock error response.
 	if q == "" {
-		err := model.ServerError {
+		err := model.ServerError{
 			Message: "Missing required request parameter",
 		}
 		return nil, model.NewServiceErrorByServerError(err, http.StatusBadRequest)
@@ -55,4 +55,3 @@ func (r *SearchRequestMock) SearchRepositories(q string) (*model.SearchRepositor
 
 	return res, nil
 }
-
