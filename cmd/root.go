@@ -13,6 +13,7 @@ var rootCmd = &cobra.Command{
 	Long:  `long description`,
 }
 
+// Execute run Execute function in cobra library
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)

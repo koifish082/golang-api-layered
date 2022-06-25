@@ -11,7 +11,7 @@ func convertSearchRepositoryResponse(repositoryResponse *model.SearchRepository)
 		r := search.Repository{
 			Name:     repo.Name,
 			FullName: repo.FullName,
-			URL:      repo.URL,
+			URL:      repo.HTMLURL,
 			Owner: search.Owner{
 				Name: repo.Owner.Login,
 			},
